@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Churn Prediction</title>
+    <!-- <link rel="stylesheet" href="./index.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" />
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+                        
+  </head>
+
+<body>
+
+
+  <div>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a class="navbar-logo" href="/">BankChurn</a>
+        </div>
+        <button class="menu-button" id="toggle-menu">
+            <div class="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+        <div class="navbar-menu">
+            <ul class="navbar-items">
+                <li><a href="/#home">Home</a></li>
+                <li><a href="/#about">About</a></li>
+                <li><a href="/#contact">Contact</a></li>
+                <li><a href="./signup.html"><i class="fas fa-user"></i></a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+       
+<style>
+
+.navbar {
+    background-color: #EC1C32; /* Dark background color */
+    color: #fff; /* Text color */
+    /* padding: 10px 20px 20px 20px; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar-logo {
+    color: #fff; /* Logo text color */
+    text-decoration: none;
+    font-size: 24px;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 20px;
+}
+
+/* .navbar-logo:hover {
+    color: #DCCCBB; 
+} */
+
+.menu-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    display: none; /* Initially hide the button */
+}
+
+.menu-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 30px;
+    background-color: #fff;
+    transition: 0.4s;
+    position: relative;
+}
+
+.menu-icon span {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+    transition: 0.4s;
+}
+
+.menu-icon.active span:nth-child(1) {
+    transform: rotate(45deg) translate(-5px, 6px);
+}
+
+.menu-icon.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-icon.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(-5px, -6px);
+}
+
+.menu-icon.active .close-icon {
+    display: block; /* Display the X sign when the menu is active */
+}
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-items {
+    list-style: none;
+    display: flex;
+    margin: -10px;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+}
+
+.navbar-items.active {
+    flex-direction: column;
+    position: absolute;
+    top: 60px; /* Adjust as needed to position the menu below the navbar */
+    right: 0;
+    background-color: black;
+    z-index: 1;
+    opacity: 0.95;
+}
+
+.navbar-items li {
+    display: inline;
+    margin-right: 20px;
+    padding: 20px;
+}
+
+.navbar-items a {
+    color: #fff; /* Link color */
+    text-decoration: none;
+}
+
+/* .navbar-items a:hover {
+    color: ; 
+} */
+
+/* Media query for responsive menu */
+@media (max-width: 700px) {
+    .menu-button {
+        display: block; /* Show the button */
+    }
+
+    .navbar-items {
+        display: none; /* Hide the menu items */
+    }
+    
+    .navbar-items.active {
+        display: flex;
+        width: 250px;
+        height: 350px;
+        flex-direction: column;
+        align-items: normal;
+        margin: -3px -50px 0 0;
+        padding: 20px 0 0 10px;
+        position: absolute;
+        top: 60px; /* Adjust as needed to position the menu below the navbar */
+        right: 20px;
+        background-color: black;
+        z-index: 1;
+        opacity: 0.95;
+        transform: translateY(0); /* Ensure the menu touches the navbar when active */
+        transition: transform 5s ease;
+    }
+
+    .navbar-items li {
+        padding: 30px;
+    }
+
+    .navbar-items li:hover {
+        font-size: 25px;
+    }
+}
+</style>
+
+<section class="containers forms">
+    <div class="form login">
+        <div class="form-content">
+            <header>Login</header>
+            <form action="#">
+                <div class="field input-field">
+                    <input type="email" placeholder="Email" class="input">
+                </div>
+                <div class="field input-field">
+                    <input type="password" placeholder="Password" class="password">
+                    <i class='bx bx-hide eye-icon'></i>
+                </div>
+                <div class="form-link">
+                    <a href="#" class="forgot-pass">Forgot password?</a>
+                </div>
+                <div class="field button-field">
+                    <button>Login</button>
+                </div>
+            </form>
+            <div class="form-link">
+                <span>Don't have an account? <a href="#" class="link signup-link">Signup</a></span>
+            </div>
+        </div>
+        <div class="line"></div>
+        <div class="media-options">
+            <a href="#" class="field facebook">
+                <i class='bx bxl-facebook facebook-icon'></i>
+                <span>Login with Facebook</span>
+            </a>
+        </div>
+        <div class="media-options">
+            <a href="#" class="field google">
+                <img src="#" alt="" class="google-img">
+                <span>Login with Google</span>
+            </a>
+        </div>
+    </div>
+    <!-- Signup Form -->
+    <div class="form signup">
+        <div class="form-content">
+            <header>Signup</header>
+            <form action="#">
+                <div class="field input-field">
+                    <input type="email" placeholder="Email" class="input">
+                </div>
+                <div class="field input-field">
+                    <input type="password" placeholder="Create password" class="password">
+                </div>
+                <div class="field input-field">
+                    <input type="password" placeholder="Confirm password" class="password">
+                    <i class='bx bx-hide eye-icon'></i>
+                </div>
+                <div class="field button-field">
+                    <button>Signup</button>
+                </div>
+            </form>
+            <div class="form-link">
+                <span>Already have an account? <a href="#" class="link login-link">Login</a></span>
+            </div>
+        </div>
+        <div class="line"></div>
+        <div class="media-options">
+            <a href="#" class="field facebook">
+                <i class='bx bxl-facebook facebook-icon'></i>
+                <span>Login with Facebook</span>
+            </a>
+        </div>
+        <div class="media-options">
+            <a href="#" class="field google">
+                <img src="#" alt="" class="google-img">
+                <span>Login with Google</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<style>
+    /* Google Fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.containers{
+    height:120vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #4070f4;
+    column-gap: 30px;
+}
+.form{
+    position: absolute;
+    max-width: 430px;
+    width: 100%;
+    padding: 30px;
+    border-radius: 6px;
+    background: #FFF;
+}
+.form.signup{
+    opacity: 0;
+    pointer-events: none;
+}
+.forms.show-signup .form.signup{
+    opacity: 1;
+    pointer-events: auto;
+}
+.forms.show-signup .form.login{
+    opacity: 0;
+    pointer-events: none;
+}
+header{
+    font-size: 28px;
+    font-weight: 600;
+    color: #232836;
+    text-align: center;
+}
+form{
+    margin-top: 30px;
+}
+.form .field{
+    position: relative;
+    height: 50px;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 6px;
+}
+.field input,
+.field button{
+    height: 100%;
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 6px;
+}
+.field input{
+    outline: none;
+    padding: 0 15px;
+    border: 1px solid#CACACA;
+}
+.field input:focus{
+    border-bottom-width: 2px;
+}
+.eye-icon{
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #8b8b8b;
+    cursor: pointer;
+    padding: 5px;
+}
+.field button{
+    color: #fff;
+    background-color: #0171d3;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.field button:hover{
+    background-color: #016dcb;
+}
+.form-link{
+    text-align: center;
+    margin-top: 10px;
+}
+.form-link span,
+.form-link a{
+    font-size: 14px;
+    font-weight: 400;
+    color: #232836;
+}
+.form a{
+    color: #0171d3;
+    text-decoration: none;
+}
+.form-content a:hover{
+    text-decoration: underline;
+}
+.line{
+    position: relative;
+    height: 1px;
+    width: 100%;
+    margin: 36px 0;
+    background-color: #d4d4d4;
+}
+.line::before{
+    content: 'Or';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFF;
+    color: #8b8b8b;
+    padding: 0 15px;
+}
+.media-options a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+a.facebook{
+    color: #fff;
+    background-color: #4267b2;
+}
+a.facebook .facebook-icon{
+    height: 28px;
+    width: 28px;
+    color: #0171d3;
+    font-size: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+}
+.facebook-icon,
+img.google-img{
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+}
+img.google-img{
+    height: 20px;
+    width: 20px;
+    object-fit: cover;
+}
+a.google{
+    border: 1px solid #CACACA;
+}
+a.google span{
+    font-weight: 500;
+    opacity: 0.6;
+    color: #232836;
+}
+
+@media screen and (max-width: 400px) {
+    .form{
+        padding: 20px 10px;
+    }
+    
+}
+</style>
+
+
+<script>
+ const forms = document.querySelector(".forms"),
+      pwShowHide = document.querySelectorAll(".eye-icon"),
+      links = document.querySelectorAll(".link");
+
+pwShowHide.forEach(eyeIcon => {
+    eyeIcon.addEventListener("click", () => {
+        let pwFields = eyeIcon.parentElement.parentElement.querySelectorAll(".password");
+        
+        pwFields.forEach(password => {
+            if(password.type === "password"){
+                password.type = "text";
+                eyeIcon.classList.replace("bx-hide", "bx-show");
+                return;
+            }
+            password.type = "password";
+            eyeIcon.classList.replace("bx-show", "bx-hide");
+        })
+        
+    })
+})      
+
+links.forEach(link => {
+    link.addEventListener("click", e => {
+       e.preventDefault(); //preventing form submit
+       forms.classList.toggle("show-signup");
+    })
+})
+
+
+</script>
+        
+</body>
+</html>

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Churn Prediction</title>
+    <!-- <link rel="stylesheet" href="./index.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" />
+
+  </head>
+
+<body>
+
+
+  <div>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a class="navbar-logo" href="/">BankChurn</a>
+        </div>
+        <button class="menu-button" id="toggle-menu">
+            <div class="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+        <div class="navbar-menu">
+            <ul class="navbar-items">
+                <li><a href="/#home">Home</a></li>
+                <li><a href="/#about">About</a></li>
+                <li><a href="/#contact">Contact</a></li>
+                <li><a href="./signup.html"><i class="fas fa-user"></i></a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+       
+<style>
+
+.navbar {
+    background-color: #EC1C32; /* Dark background color */
+    color: #fff; /* Text color */
+    /* padding: 10px 20px 20px 20px; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar-logo {
+    color: #fff; /* Logo text color */
+    text-decoration: none;
+    font-size: 24px;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 20px;
+}
+
+/* .navbar-logo:hover {
+    color: #DCCCBB; 
+} */
+
+.menu-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    display: none; /* Initially hide the button */
+}
+
+.menu-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 30px;
+    background-color: #fff;
+    transition: 0.4s;
+    position: relative;
+}
+
+.menu-icon span {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+    transition: 0.4s;
+}
+
+.menu-icon.active span:nth-child(1) {
+    transform: rotate(45deg) translate(-5px, 6px);
+}
+
+.menu-icon.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-icon.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(-5px, -6px);
+}
+
+.menu-icon.active .close-icon {
+    display: block; /* Display the X sign when the menu is active */
+}
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-items {
+    list-style: none;
+    display: flex;
+    margin: -10px;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+}
+
+.navbar-items.active {
+    flex-direction: column;
+    position: absolute;
+    top: 60px; /* Adjust as needed to position the menu below the navbar */
+    right: 0;
+    background-color: black;
+    z-index: 1;
+    opacity: 0.95;
+}
+
+.navbar-items li {
+    display: inline;
+    margin-right: 20px;
+    padding: 20px;
+}
+
+.navbar-items a {
+    color: #fff; /* Link color */
+    text-decoration: none;
+}
+
+/* .navbar-items a:hover {
+    color: ; 
+} */
+
+/* Media query for responsive menu */
+@media (max-width: 700px) {
+    .menu-button {
+        display: block; /* Show the button */
+    }
+
+    .navbar-items {
+        display: none; /* Hide the menu items */
+    }
+    
+    .navbar-items.active {
+        display: flex;
+        width: 250px;
+        height: 350px;
+        flex-direction: column;
+        align-items: normal;
+        margin: -3px -50px 0 0;
+        padding: 20px 0 0 10px;
+        position: absolute;
+        top: 60px; /* Adjust as needed to position the menu below the navbar */
+        right: 20px;
+        background-color: black;
+        z-index: 1;
+        opacity: 0.95;
+        transform: translateY(0); /* Ensure the menu touches the navbar when active */
+        transition: transform 5s ease;
+    }
+
+    .navbar-items li {
+        padding: 30px;
+    }
+
+    .navbar-items li:hover {
+        font-size: 25px;
+    }
+}
+
+</style>    
+
+        
+        <form action="{{ url_for('predict')}}" method="post">
+	    <h1>Churn Form</h1>
+	    
+    <div class="contentform">
+    	<div id="sendmessage"> Your message has been sent successfully. Thank you. </div>
+
+        
+    	<div class="leftcontact">
+			      <div class="form-group">
+			        <p>Credit Score<span>*</span></p>
+			        <input name="CreditScore"  name="CreditScore" type="number" >
+                <div class="validation"></div>
+       </div> 
+
+            <div class="form-group">
+            <p>Age <span>*</span></p>
+            
+				<input name="Age" required="required">
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>Tenure <span>*</span></p>	
+                <input name="Tenure" required="required">
+                <div class="validation"></div>
+			</div>	
+
+			<div class="form-group">
+			<p>Enter the Account Balance:  <span>*</span></p>
+		
+				<input name="Balance" required="required">
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>Number of Products <span>*</span></p>
+			
+				<input name="NumOfProducts" required="required">
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>Do the Customer have Credit Card? (1=Yes, 0=No) <span>*</span></p>
+			
+				<input name="HasCrCard" required="required">
+                <div class="validation"></div>
+			</div>	
+
+
+
+	</div>
+
+	<div class="rightcontact">	
+
+			<div class="form-group">
+			<p>Is the Customer Active Member (1=Yes, 0=No)<span>*</span></p>
+			
+				<input name="IsActiveMember" required="required">
+                <div class="validation"></div>
+			</div>	
+
+			<div class="form-group">
+			<p>Enter the Estimated Salary: <span>*</span></p>	
+			
+				<input name="EstimatedSalary" required="required">
+                <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>Enter The Location: <span>*</span></p>
+			
+                <select name="Geography_Germany" required="required">
+                <option value="Germany">Germany</option>
+                <option value="Spain">Spain</option>
+                <option value="France">France</option>
+            </select>
+            <div class="validation"></div>
+			</div>
+
+			<div class="form-group">
+			<p>Gender of Customer:  <span>*</span></p>	
+		
+                <select name="Gender_Male" id="resea" required="required">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+                <div class="validation"></div>
+			</div>
+		
+			
+	</div>
+	</div>
+<button  type="submit " class="btn btn-lg btn-info mb-5 ml-5">Predict whether the Customer will leave the bank or not?</button>
+	
+</form>	
+    
+   
+   
+
+
+        <br><br><h3 class="alert alert-primary text-center" role="alert">{{ prediction_text }}<h3>
+    </div>
+    
+
+
+
+    <style>
+
+body {
+  margin: auto;
+  background: #E4F6F8;  
+  font-family: 'Times New Roman', Times, serif;
+}
+.info p {
+  text-align:center;
+  color: #999;
+  text-transform:none;
+  font-weight:600;
+  font-size:15px;
+  margin-top:2px
+}
+
+.info i {
+  color:#F6AA93;
+}
+
+form h1 {
+  font-size: 30px;
+  padding: 22px 25px;
+  border-radius: 5px 5px 0px 0px;
+  margin: auto;
+  text-align:center;
+  color: darkblue;
+}
+
+form {
+  border-radius: 5px;
+  max-width:700px;
+  width:100%;
+  margin: 5% auto;
+  background-color: #FFFFFF;
+  overflow: hidden;
+  border-color: black;
+}
+
+p span {
+  color: #F00;
+}
+
+p {
+  margin: 0px;
+  font-weight: 500;
+  line-height: 2;
+  color:#333;
+}
+
+/* h1 {
+  
+  color: darkblue;
+  text-shadow: 1px 1px 0px #FFF;
+  margin:50px 0px 0px 0px
+} */
+
+input {
+  border-radius: 5px 5px 5px 5px;
+  border: 1px solid grey;
+  margin-bottom: 15px;
+  width: 75%;
+  height: 40px;
+  float: left;
+  padding: 0px 15px;
+}
+
+a {
+  text-decoration:inherit
+}
+
+textarea {
+  border-radius: 0px 5px 5px 0px;
+  border: 1px solid #EEE;
+  margin: 0;
+  width: 75%;
+  height: 130px; 
+  float: left;
+  padding: 0px 15px;
+}
+
+.form-group {
+  overflow: hidden;
+  clear: both;
+}
+
+
+i {
+  color:#555;
+}
+
+.contentform {
+  padding: 40px 30px;
+}
+
+/* .bouton-contact{
+  background-color: #EC1C32;
+  color: #FFF;
+  text-align: center;
+  width: 100%;
+  border:0;
+  padding: 17px 25px;
+  border-radius: 0px 0px 5px 5px;
+  cursor: pointer;
+  margin-top: 40px;
+  font-size: 18px;
+} */
+.btn:hover{
+  background-color:darkblue;
+  color:#E4F6F8;
+
+  
+}
+.btn{
+  background-color: #ec1c24;
+  margin: 20px;
+  margin-left: 200px;
+}
+
+.leftcontact {
+  width:49.5%; 
+  float:left;
+  border-right: 1px solid black;
+  box-sizing: border-box;
+  padding: 0px 15px 0px 0px;
+}
+
+.rightcontact {
+  width:49.5%;
+  float:right;
+  box-sizing: border-box;
+  padding: 0px 0px 0px 15px;
+}
+
+.validation {
+  display:none;
+  margin: 0 0 10px;
+  font-weight:400;
+  font-size:13px;
+  color: #DE5959;
+}
+
+#sendmessage {
+  border:1px solid #fff;
+  display:none;
+  text-align:center;
+  margin:10px 0;
+  font-weight:600;
+  margin-bottom:30px;
+  background-color: #EBF6E0;
+  padding: 13px 40px 13px 18px;
+  border-radius: 3px;
+  
+}
+
+#sendmessage.show,.show  {
+  display:block;
+}
+        
+
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+
+<script>
+
+const menuButton = document.getElementById('toggle-menu');
+        const navbarItems = document.querySelector('.navbar-items');
+
+        menuButton.addEventListener('click', function () {
+            navbarItems.classList.toggle('active');
+        });
+        document.addEventListener("DOMContentLoaded", function() {
+    const intro = document.querySelector('.intro');
+    intro.style.transform = 'translateY(0)'; // Move the content to its original position
+});
+
+
+
+</script>
+
+
+</body>
+</html>
