@@ -1,89 +1,223 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <!-- Include your CSS file for the two-column layout -->
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/10.5.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/10.5.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/10.5.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/10.5.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/10.5.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/10.5.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/10.5.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/10.5.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/10.5.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/10.5.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+</head>
+<body>
+    <div>
+        <nav class="navbar">
+            <div class="navbar-brand">
+                <a class="navbar-logo" href="/">BankChurn</a>
+            </div>
+            <button class="menu-button" id="toggle-menu">
+                <div class="menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            <div class="navbar-menu">
+                <ul class="navbar-items">
+                    <li><a href="/#home">Home</a></li>
+                    <li><a href="/#about">About</a></li>
+                    <li><a href="/#contact">Contact</a></li>
+                    <li><a href="./signup.html"><i class="fas fa-user"></i></a></li>
+                </ul>
+            </div>
+        </nav>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+
+
+    <section id="home">
+    <div class="intro">
+        <div class="left">
+            <h1>We Do Prediction</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad aut voluptatum at nobis architecto quibusdam vel molestiae ab rerum aspernatur delectus ex fuga nam voluptate soluta natus recusandae vitae, labore doloremque voluptatem. Iste vitae sit, nostrum quo tempore aut voluptate, modi nisi iusto nemo ducimus soluta quos? Accusamus, perferendis. Soluta.</p>
+        <button class="custom-button"> <a href="./form.html"><b>Prediction</b></a></button>    
+    </div>
+
+        <div class="right">
+            <img src="./home_page_image.jpg" height="400px" alt="img" class="churn-img">
+        </div>
+
+    </div>
+  </section>
+
+  
+
+
+  <section id="about">
+ <div class="mid">
+        <div class="page-mid">
+            <h1>About Us</h1>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi veniam dolores quas rerum. Quasi, cumque! Rem amet, atque voluptatibus veniam corporis ipsam praesentium odio ut assumenda delectus quia consequatur consectetur! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis iure quis expedita et repellendus blanditiis velit perferendis officia cumque saepe debitis aperiam, facere, totam amet minus ipsum mollitia eligendi. Sit?
+            </p>
+        </div>
+        <div class="page-low">
+            <div class="section">
+                <div class="section-content">
+                    <h1>Our Services</h1>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat reprehenderit incidunt optio? Dolore atque sequi quaerat ut voluptatum! Zebra and tiger
+                    </p>
+                    <button class="section-button">Learn More</button>
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-content">
+                    <h1>Join Community</h1>
+                    <p>
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum ratione adipisci accusantium illo velit? Odit tempore quisquam sequi necessitatibus
+                    </p>
+                    <button class="section-button">Join Now</button>
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-content">
+                    <h1>Get Support</h1>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium corrupti laboriosam optio? Cupiditate laudantium corrupti culpa magni.
+                    </p>
+                    <button class="section-button">Get Help</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+
+
+
+  <section id="contact">
+    <div class="contact">
+        <div class="wrapper">
+          <div class="form">
+            <!-- <h3>Get In Touch</h3> -->
+            <h2 class="form-headline">Send us a message</h2>
+            <form id="submit-form" action="">
+              <p>
+                <input id="name" class="form-input" type="text" placeholder="Your Name*">
+                <small class="name-error"></small>
+              </p>
+              <p>
+                <input id="email" class="form-input" type="email" placeholder="Your Email*">
+                <small class="name-error"></small>
+              </p>
+              <p class="full-width">
+                <input id="company-name" class="form-input" type="text" placeholder="Company Name*" required>
+                <small></small>
+              </p>
+              <p class="full-width">
+                <textarea  minlength="20" id="message" cols="30" rows="7" placeholder="Your Message*" required></textarea>
+                <small></small>
+              </p>
+              <p class="full-width">
+                <input type="checkbox" id="checkbox" name="checkbox" checked> Yes, I would like to receive communications by call / email about Company's services.
+              </p>
+              <p class="full-width">
+                <input type="submit" class="submit-btn" value="Submit" onclick="checkValidations()">
+                <button class="reset-btn" onclick="reset()">Reset</button>
+              </p>
+            </form>
+          </div>
+      
+          
+        </div>
+      </div>
+    </section>
+
+
+
+
+      <div class="contact-wrapper">
+        <div class="footer">
+            <ul>
+            <li><a href="https://github.com/nikamaish"><i class="fab fa-github fa-2x" style="color: #ffffff;" ></i></a></li>
+            <li><a href="https://www.instagram.com/"><i class="fa-brands fa-instagram fa-2x" style="color: #ffffff;"></i></a></li>
+            <li><a href="https://in.linkedin.com/"><i class="fa-brands fa-linkedin fa-2x" style="color: #ffffff;"></i></a></li>   
+            <li><a href="https://www.youtube.com/"><i class="fa-brands fa-youtube fa-2x" style="color: #ffffff;"></i></a></li>
+            </ul>        
+        </div>
+    </div>
+    
+      
+
+
+
 
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        // JavaScript to toggle the menu on click
+        const menuButton = document.getElementById('toggle-menu');
+const navbarItems = document.querySelector('.navbar-items');
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
+menuButton.addEventListener('click', function () {
+    navbarItems.classList.toggle('active');
+    menuButton.classList.toggle('active');
+});
+        document.addEventListener("DOMContentLoaded", function() {
+    const intro = document.querySelector('.intro');
+    intro.style.transform = 'translateY(0)'; // Move the content to its original position
+});
+
+const nameEl = document.querySelector("#name");
+const emailEl = document.querySelector("#email");
+const companyNameEl = document.querySelector("#company-name");
+const messageEl = document.querySelector("#message");
+
+const form = document.querySelector("#submit-form");
+
+function checkValidations() {
+  let letters = /^[a-zA-Z\s]*$/;
+  const name = nameEl.value.trim();
+  const email = emailEl.value.trim();
+  const companyName = companyNameEl.value.trim();
+  const message = messageEl.value.trim();
+  if (name === "") {
+     document.querySelector(".name-error").classList.add("error");
+      document.querySelector(".name-error").innerText =
+        "Please fill out this field!";
+  } else {
+    if (!letters.test(name)) {
+      document.querySelector(".name-error").classList.add("error");
+      document.querySelector(".name-error").innerText =
+        "Please enter only characters!";
+    } else {
+      
+    }
+  }
+  if (email === "") {
+     document.querySelector(".name-error").classList.add("error");
+      document.querySelector(".name-error").innerText =
+        "Please fill out this field!";
+  } else {
+    if (!letters.test(name)) {
+      document.querySelector(".name-error").classList.add("error");
+      document.querySelector(".name-error").innerText =
+        "Please enter only characters!";
+    } else {
+      
+    }
+  }
+}
+
+function reset() {
+  nameEl = "";
+  emailEl = "";
+  companyNameEl = "";
+  messageEl = "";
+  document.querySelector(".name-error").innerText = "";
+}
+
+
+
+
+ </script>
+</body>
 </html>
